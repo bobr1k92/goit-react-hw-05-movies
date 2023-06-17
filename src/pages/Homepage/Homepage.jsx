@@ -1,15 +1,9 @@
-import { fetchPopularMovie } from 'components/API/API';
+import { fetchPopularMovie } from 'services/API';
 import { Container } from 'utils/Container';
 import { useEffect, useState } from 'react';
-import {
-  MovieList,
-  MovieItem,
-  MovieLink,
-  MovieTitle,
-  MovieText,
-  MovieImage,
-} from './Homepage.styled';
 import { Loader } from 'components/Loader/Loader';
+import { MoviesItem } from 'pages/MovieItem/MovieItem';
+import { MovieTitle } from './Homepage.styled';
 
 const Homepage = () => {
   const [movies, setMovies] = useState([]);
@@ -44,23 +38,7 @@ const Homepage = () => {
     <>
       <Container>
         <MovieTitle>Top-movies of this week</MovieTitle>
-        <MovieList>
-          {movies.map(film => (
-            <MovieItem key={film.id}>
-              <MovieLink to={`movies/${film.id}`}>
-                <MovieImage
-                  src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${film.poster_path}`}
-                  alt={film.title || film.name}
-                  width="180"
-                  height="250"
-                />
-                <MovieText>
-                  <strong>{film.title || film.name}</strong>
-                </MovieText>
-              </MovieLink>
-            </MovieItem>
-          ))}
-        </MovieList>
+        <MoviesItem movies={movies} />
       </Container>
     </>
   );

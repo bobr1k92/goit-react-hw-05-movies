@@ -1,4 +1,4 @@
-import { fetchMovieCredits } from 'components/API/API';
+import { fetchMovieCredits } from 'services/API';
 import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,9 @@ import {
   CastListText,
 } from './Cast.styled';
 import PropTypes from 'prop-types';
+
+const defaultImg =
+  'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -37,7 +40,11 @@ const Cast = () => {
               <CastListItem key={cast.id}>
                 <CastListImg
                   width={100}
-                  src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${cast.profile_path}`}
+                  src={
+                    cast.profile_path
+                      ? 'https://image.tmdb.org/t/p/w500' + cast.profile_path
+                      : defaultImg
+                  }
                   alt={cast.name}
                 />
                 <CastListText>{cast.name}</CastListText>

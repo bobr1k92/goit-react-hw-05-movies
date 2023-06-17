@@ -1,4 +1,4 @@
-import { fetchMovieDetails } from 'components/API/API';
+import { fetchMovieDetails } from 'services/API';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { Container } from 'utils/Container';
@@ -15,6 +15,9 @@ import { Loader } from 'components/Loader/Loader';
 import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn';
 import { PAGE_NAMES } from 'components/router/paths';
 import { MovieImage } from 'pages/Homepage/Homepage.styled';
+
+const defaultImg =
+  'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -54,7 +57,11 @@ const MovieDetails = () => {
         <GoBackBtn path={location?.state?.from ?? '/'} />
         <MovieCardWrap>
           <MovieImage
-            src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+                : defaultImg
+            }
             alt={movie.original_title}
             width="300"
             height="450"
